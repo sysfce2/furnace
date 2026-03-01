@@ -32,7 +32,6 @@
 #include "misc/freetype/imgui_freetype.h"
 #include "scaling.h"
 #include <fmt/printf.h>
-#include <imgui.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -1203,17 +1202,14 @@ void FurnaceGUI::drawSettings() {
           settings.blankIns=blankInsB;
           settingsChanged=true;
         }
-        ImGui::BeginDisabled();
         bool warnNotePassthroughB=settings.warnNotePassthrough;
         if (ImGui::Checkbox(_("Allow note input with open warning"),&warnNotePassthroughB)) {
           settings.warnNotePassthrough=warnNotePassthroughB;
           settingsChanged=true;
         }
-        if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled)) {
-          // ImGui::SetTooltip(_("allows passthrough for notes while warnings are open; only ESC will be used for warnings"));
-          ImGui::SetTooltip("FIXME!!!");
+        if (ImGui::IsItemHovered()) {
+          ImGui::SetTooltip(_("allows passthrough for notes while warnings are open; only ESC will be used for warnings"));
         }
-        ImGui::EndDisabled();
         // SUBSECTION CONFIGURATION
         CONFIG_SUBSECTION(_("Configuration"));
         if (ImGui::Button(_("Import"))) {

@@ -1796,9 +1796,7 @@ void FurnaceGUI::keyDown(SDL_Event& ev) {
         }
         // pattern input otherwise
         if (mapped&(FURKMOD_ALT|FURKMOD_CTRL|FURKMOD_META|FURKMOD_SHIFT)) break;
-        // FIXME: figure out why pattern input gets broken, even on startup
-        // a bisect puts it on 31a43580f39e77144956821d50ef79de4511f642
-        // if (warnIsOpen && !settings.warnNotePassthrough) break;
+        if (warnIsOpen && !settings.warnNotePassthrough) break;
         if (!ev.key.repeat || settings.inputRepeat) {
           if (cursor.xFine==0) { // note
             auto it=noteKeys.find(ev.key.keysym.scancode);
@@ -3875,9 +3873,7 @@ int FurnaceGUI::processEvent(SDL_Event* ev) {
           }
           // fall-through
         default: {
-          // FIXME: figure out why pattern input gets broken, even on startup
-          // a bisect puts it on 31a43580f39e77144956821d50ef79de4511f642
-          // if (warnIsOpen && !settings.warnNotePassthrough) break;
+          if (warnIsOpen && !settings.warnNotePassthrough) break;
           auto it=noteKeys.find(ev->key.keysym.scancode);
           if (it!=noteKeys.cend()) {
             int key=it->second;
